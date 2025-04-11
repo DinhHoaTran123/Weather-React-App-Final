@@ -30,7 +30,7 @@
 - NPM / Yarn / PNPM
 
 
-Biến Môi Trường
+## Biến Môi Trường
 VITE_OPENWEATHER_API_KEY:
 API key của OpenWeatherMap được lưu trong file .env.
 
@@ -50,7 +50,7 @@ Sử dụng nút chuyển đổi để thay đổi giữa Celsius và Fahrenheit
 Làm mới dữ liệu:
 Nhấn nút “Làm mới” trong widget để cập nhật dữ liệu ngay lập tức.
 
-Công Nghệ Sử Dụng
+## Công Nghệ Sử Dụng
 React – Thư viện xây dựng giao diện người dùng.
 
 Vite – Công cụ bundler và phát triển nhanh.

@@ -1,5 +1,5 @@
 // src/components/SearchBar.tsx
-import React, { useState, FormEvent, useEffect } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react';
 import axios from 'axios';
 
 export interface CitySuggestion {
@@ -20,7 +20,6 @@ const SearchBar: React.FC<SearchBarProps> = ({ onCitySelect }) => {
   const [suggestions, setSuggestions] = useState<CitySuggestion[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  // Gọi API khi query thay đổi, có hiệu ứng debounce để tránh gọi quá nhiều request
   useEffect(() => {
     if (query.length < 2) {
       setSuggestions([]);
@@ -28,23 +27,19 @@ const SearchBar: React.FC<SearchBarProps> = ({ onCitySelect }) => {
     }
     const delayDebounceFn = setTimeout(() => {
       setIsLoading(true);
-      axios
-        .get<CitySuggestion[]>('https://api.openweathermap.org/geo/1.0/direct', {
-          params: {
-            q: query,
-            appid: '6f5146b1cd2be5ee3f6f1d7f3ffda826'
-          }
-        })
-        .then((response) => {
-          setSuggestions(response.data);
-        })
-        .catch((error) => {
-          console.error('Error fetching city suggestions:', error);
-          setSuggestions([]);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
+      axios.get<CitySuggestion[]>('https://api.openweathermap.org/geo/1.0/direct', {
+        params: {
+          q: query,
+          limit: 5,
+          appid: '6f5146b1cd2be5ee3f6f1d7f3ffda826'
+        }
+      })
+      .then(response => setSuggestions(response.data))
+      .catch(error => {
+        console.error('Error fetching city suggestions:', error);
+        setSuggestions([]);
+      })
+      .finally(() => setIsLoading(false));
     }, 500);
 
     return () => clearTimeout(delayDebounceFn);
@@ -55,19 +50,18 @@ const SearchBar: React.FC<SearchBarProps> = ({ onCitySelect }) => {
   };
 
   const handleSuggestionClick = (city: CitySuggestion) => {
-    setQuery(''); // Xóa text tìm kiếm
-    setSuggestions([]); // Ẩn danh sách gợi ý
+    setQuery('');
+    setSuggestions([]);
     onCitySelect(city);
   };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    // Nếu nhấn enter mà có danh sách gợi ý, chọn mục đầu tiên
     if (suggestions.length > 0) {
       onCitySelect(suggestions[0]);
+      setQuery('');
+      setSuggestions([]);
     }
-    setQuery('');
-    setSuggestions([]);
   };
 
   return (
@@ -81,7 +75,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onCitySelect }) => {
         />
         <button type="submit">Tìm</button>
       </form>
-      {isLoading && <div>Loading...</div>}
+      {isLoading && <div className="loading">Loading...</div>}
       {suggestions.length > 0 && (
         <ul className="suggestions-list">
           {suggestions.map((city, index) => (

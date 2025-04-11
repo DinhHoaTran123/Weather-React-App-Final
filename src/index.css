@@ -1,32 +1,34 @@
 /* src/index.css */
 
-/* Import Google Font Poppins cho giao diện hiện đại */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+/* Import Google Font Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-/* CSS Variables cho dễ tùy biến */
+/* CSS Variables để dễ tùy biến */
 :root {
-  --primary-color: #6c5ce7;
-  --primary-dark: #5a4ac7;
-  --secondary-color: #00cec9;
-  --bg-gradient-start: #e0eafc;
-  --bg-gradient-end: #cfdef3;
+  --primary-color: #ff7e5f;          /* Màu chủ đạo 1 */
+  --secondary-color: #feb47b;        /* Màu chủ đạo 2 */
+  --accent-color: #6c5ce7;           /* Màu nhấn cho tiêu đề, nút */
+  --accent-dark: #5a4ac7;
+  --bg-gradient-start: #ece9e6;       /* Màu nền gradient */
+  --bg-gradient-end: #ffffff;
   --text-color: #333;
-  --light-text: #777;
-  --card-bg: #ffffff;
+  --card-bg: #ffffff;                /* Nền thống nhất cho widget */
   --border-color: #ddd;
-  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-color: rgba(0, 0, 0, 0.15);
+  --transition-speed: 0.3s;
 }
 
-/* Global Reset & Base */
+/* Global Reset */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+/* Body Styling */
 body {
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(to right, var(--bg-gradient-start), var(--bg-gradient-end));
+  background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
   color: var(--text-color);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -36,14 +38,15 @@ body {
 /* App Container */
 .App {
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 30px 20px;
+  margin: 2rem auto;
+  padding: 20px;
+  text-align: center;
 }
 
 /* Global Headings */
 h1, h2, h3, h4 {
-  color: var(--primary-color);
-  margin-bottom: 12px;
+  color: var(--accent-color);
+  margin-bottom: 1rem;
   font-weight: 600;
 }
 
@@ -53,6 +56,7 @@ h1, h2, h3, h4 {
   width: 100%;
   max-width: 450px;
   margin: 0 auto 40px auto;
+  overflow: visible;
 }
 
 .search-bar-container form {
@@ -63,58 +67,63 @@ h1, h2, h3, h4 {
 
 .search-bar-container input[type="text"] {
   flex: 1;
-  padding: 12px 18px;
-  font-size: 16px;
-  border: 1px solid var(--border-color);
+  padding: 14px 20px;
+  font-size: 18px;
+  border: 2px solid var(--border-color);
   border-right: none;
-  border-radius: 30px 0 0 30px;
+  border-radius: 50px 0 0 50px;
   outline: none;
-  transition: border-color 0.3s ease;
+  transition: border-color var(--transition-speed);
 }
 
 .search-bar-container input[type="text"]:focus {
-  border-color: var(--primary-color);
+  border-color: var(--accent-color);
 }
 
 .search-bar-container button {
-  padding: 12px 22px;
-  font-size: 16px;
-  border: 1px solid var(--border-color);
+  padding: 14px 24px;
+  font-size: 18px;
+  border: 2px solid var(--border-color);
   border-left: none;
-  border-radius: 0 30px 30px 0;
+  border-radius: 0 50px 50px 0;
   cursor: pointer;
-  background-color: var(--primary-color);
+  background-color: var(--accent-color);
   color: #fff;
-  transition: background 0.3s ease, border-color 0.3s ease;
+  transition: background var(--transition-speed), border-color var(--transition-speed);
 }
 
 .search-bar-container button:hover {
-  background-color: var(--primary-dark);
-  border-color: var(--primary-dark);
+  background-color: var(--accent-dark);
+  border-color: var(--accent-dark);
+}
+
+/* Loading Indicator */
+.loading {
+  margin-top: 5px;
+  font-size: 14px;
 }
 
 /* Suggestions List */
 .suggestions-list {
   list-style: none;
-  margin: 0;
-  padding: 0;
   background: var(--card-bg);
-  border: 1px solid var(--border-color);
+  border: 2px solid var(--border-color);
   border-top: none;
-  max-height: 250px;
-  overflow-y: auto;
   position: absolute;
   width: 100%;
+  top: 100%;
   z-index: 100;
-  border-radius: 0 0 8px 8px;
-  box-shadow: 0 2px 6px var(--shadow-color);
+  max-height: 250px;
+  overflow-y: auto;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 4px 8px var(--shadow-color);
 }
 
 .suggestions-list li {
-  padding: 12px 18px;
+  padding: 12px 20px;
   cursor: pointer;
-  transition: background 0.2s ease;
-  border-bottom: 1px dashed var(--border-color);
+  transition: background var(--transition-speed);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .suggestions-list li:last-child {
@@ -122,36 +131,60 @@ h1, h2, h3, h4 {
 }
 
 .suggestions-list li:hover {
-  background: #f1f1f1;
+  background: var(--bg-gradient-end);
 }
 
-/* Dashboard Grid */
-.dashboard .widgets-container {
+/* Widgets Grid */
+.widgets-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  grid-gap: 25px;
+  grid-gap: 2rem;
   padding: 0 20px;
 }
 
-/* Widget Styling */
+/* Widget Styling - Màu đồng nhất cho tất cả widget */
 .widget {
   background: var(--card-bg);
-  border-radius: 12px;
-  padding: 25px 20px;
+  border-radius: 20px;
+  padding: 30px;
   position: relative;
-  box-shadow: 0 6px 10px var(--shadow-color);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 10px 15px var(--shadow-color);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+  overflow: hidden;
 }
 
 .widget:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px var(--shadow-color);
+  transform: translateY(-10px);
+  box-shadow: 0 15px 25px var(--shadow-color);
 }
 
 .widget h3 {
-  margin-top: 0;
-  font-size: 24px;
-  font-weight: 600;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+/* Không sử dụng các lớp nền động nữa, tất cả widget dùng nền var(--card-bg) */
+
+/* Widget Controls */
+.widget-controls {
+  margin-top: 15px;
+}
+
+.widget-controls button {
+  padding: 10px 16px;
+  margin: 0.5rem;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--accent-color);
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background var(--transition-speed);
+}
+
+.widget-controls button:hover {
+  background-color: var(--accent-dark);
 }
 
 /* Remove Button */
@@ -162,59 +195,136 @@ h1, h2, h3, h4 {
   background: var(--secondary-color);
   color: #fff;
   border: none;
-  padding: 6px 12px;
+  padding: 8px 14px;
   font-size: 14px;
-  border-radius: 6px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background var(--transition-speed);
 }
 
 .remove-btn:hover {
-  background: darkcyan;
+  background: #009f95;
 }
 
 /* Current Weather */
 .current-weather p {
-  font-size: 20px;
-  margin: 10px 0;
+  font-size: 22px;
+  margin: 8px 0;
 }
 
 /* Forecast Section */
 .forecast {
   margin-top: 20px;
-  background: #f8f8f8;
-  padding: 18px;
-  border-radius: 10px;
+  background: #f7f7f7;
+  padding: 20px;
+  border-radius: 15px;
 }
 
 .forecast h4 {
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 8px;
   margin-bottom: 15px;
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 20px;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 8px;
 }
 
 .forecast ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+  list-style: none;
 }
 
 .forecast ul li {
-  padding: 8px 0;
-  font-size: 16px;
-  border-bottom: 1px dashed var(--border-color);
+  padding: 10px 0;
+  font-size: 18px;
+  border-bottom: 1px dotted var(--border-color);
 }
 
 .forecast ul li:last-child {
   border-bottom: none;
 }
 
-/* Responsive Adjustments */
+/* Unit Toggle Button */
+.unit-toggle {
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--accent-color);
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background var(--transition-speed);
+}
+
+.unit-toggle:hover {
+  background-color: var(--accent-dark);
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(51,51,51,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: var(--card-bg);
+  padding: 30px 40px;
+  border-radius: 20px;
+  max-width: 550px;
+  width: 90%;
+  text-align: left;
+  position: relative;
+  animation: modalIn 0.4s ease-out;
+}
+
+@keyframes modalIn {
+  from { transform: translateY(-50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-content button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: var(--secondary-color);
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background var(--transition-speed);
+}
+
+.modal-content button:hover {
+  background: #009f95;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   .widgets-container {
     grid-template-columns: 1fr;
     padding: 0 10px;
   }
+  
+  .search-bar-container {
+    max-width: 90%;
+  }
+}
+/* Phần bổ sung vào file index.css */
+.resize-handle {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  right: 0;
+  bottom: 0;
+  cursor: se-resize;
+  background: rgba(0, 0, 0, 0.2);
+  border-top-left-radius: 4px;
+  z-index: 10;
 }

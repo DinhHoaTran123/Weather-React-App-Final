@@ -2,13 +2,16 @@
 import React from 'react';
 import Dashboard from './components/Dashboard';
 import './index.css';
+import { SettingsProvider } from './assets/SettingsContext';
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <h1>React Weather App</h1>
-      <Dashboard />
-    </div>
+    <SettingsProvider>
+      <div className="App">
+        <h1>React Weather App</h1>
+        <Dashboard />
+      </div>
+    </SettingsProvider>
   );
 };
 

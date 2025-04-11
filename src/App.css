@@ -1,187 +1,32 @@
 /* src/index.css */
-
-/* Global Reset & Body */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #f4f7f9;
-  color: #333;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* App Container */
-.App {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-/* Headings */
-h1, h2, h3, h4 {
-  color: #2c3e50;
-  margin-bottom: 10px;
-}
-
-/* Search Bar Container */
 .search-bar-container {
   position: relative;
+  width: 300px;
+}
+
+.search-bar-container input {
   width: 100%;
-  max-width: 400px;
-  margin: 0 auto 30px auto;
-  text-align: center;
+  padding: 8px;
 }
 
-.search-bar-container form {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.search-bar-container input[type="text"] {
-  width: 70%;
-  padding: 10px 15px;
-  border: 1px solid #ccc;
-  border-right: none;
-  border-radius: 30px 0 0 30px;
-  font-size: 16px;
-  outline: none;
-}
-
-.search-bar-container button {
-  padding: 10px 20px;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  background-color: #3498db;
-  color: #fff;
-  font-size: 16px;
-  border-radius: 0 30px 30px 0;
-  transition: background 0.3s ease;
-}
-
-.search-bar-container button:hover {
-  background-color: #2980b9;
-}
-
-/* Suggestions List */
 .suggestions-list {
   list-style: none;
   margin: 0;
   padding: 0;
   border: 1px solid #ccc;
   background: #fff;
-  max-height: 250px;
+  max-height: 200px;
   overflow-y: auto;
   position: absolute;
   width: 100%;
-  z-index: 100;
-  border-radius: 0 0 8px 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 10;
 }
 
 .suggestions-list li {
-  padding: 10px 15px;
+  padding: 8px;
   cursor: pointer;
-  transition: background 0.2s ease;
 }
 
 .suggestions-list li:hover {
-  background: #ecf0f1;
-}
-
-/* Dashboard Grid */
-.dashboard .widgets-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  grid-gap: 20px;
-  padding: 0 20px;
-}
-
-/* Widget Styling */
-.widget {
-  background: #fff;
-  border-radius: 10px;
-  padding: 20px;
-  position: relative;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.widget:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-}
-
-.widget h3 {
-  margin-top: 0;
-}
-
-/* Remove Button */
-.remove-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: #e74c3c;
-  color: #fff;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.remove-btn:hover {
-  background: #c0392b;
-}
-
-/* Current Weather */
-.current-weather p {
-  font-size: 18px;
-  margin: 10px 0;
-}
-
-/* Forecast Section */
-.forecast {
-  margin-top: 20px;
-  background: #f9f9f9;
-  padding: 15px;
-  border-radius: 8px;
-}
-
-.forecast h4 {
-  margin-top: 0;
-  font-weight: 500;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 5px;
-  margin-bottom: 15px;
-}
-
-.forecast ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-.forecast ul li {
-  padding: 5px 0;
-  font-size: 16px;
-  border-bottom: 1px dashed #ddd;
-}
-
-.forecast ul li:last-child {
-  border-bottom: none;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .widgets-container {
-    grid-template-columns: 1fr;
-    padding: 0 10px;
-  }
+  background: #f0f0f0;
 }

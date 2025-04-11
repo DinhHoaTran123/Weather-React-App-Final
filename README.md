@@ -5,7 +5,6 @@
 ## Table of Contents
 
 - [Tính Năng](#tính-năng)
-- [Cài Đặt](#cài-đặt)
 - [Biến Môi Trường](#biến-môi-trường)
 - [Công Nghệ Sử Dụng](#công-nghệ-sử-dụng)
 
@@ -29,42 +28,6 @@
 
 - Node.js (phiên bản 14.x trở lên)
 - NPM / Yarn / PNPM
-
-### Hướng Dẫn Cài Đặt
-
-1. **Clone dự án:**
-
-   ```bash
-   git clone https://github.com/yourusername/react-weather-app.git
-   cd react-weather-app
-Cài đặt các dependencies:
-
-bash
-Copy
-npm install
-hoặc
-
-bash
-Copy
-yarn install
-Tạo file biến môi trường:
-
-Tạo file .env ở thư mục gốc với nội dung:
-
-env
-Copy
-VITE_OPENWEATHER_API_KEY=6f5146b1cd2be5ee3f6f1d7f3ffda826
-Chạy dự án:
-
-bash
-Copy
-npm run dev
-hoặc
-
-bash
-Copy
-yarn dev
-Mở trình duyệt tại URL được hiển thị (thường là http://localhost:3000).
 
 
 Biến Môi Trường

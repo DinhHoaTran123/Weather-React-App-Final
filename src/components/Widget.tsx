@@ -9,7 +9,7 @@ import {
 } from '../api/weatherApi';
 import { CitySuggestion } from './SearchBar';
 import WeatherModal from './WeatherModal';
-import { SettingsContext } from '../assets/SettingsContext';
+import { SettingsContext } from '../context/SettingsContext';
 
 interface WidgetProps {
   city: CitySuggestion;
@@ -89,8 +89,6 @@ const Widget: React.FC<WidgetProps> = ({ city, onRemove }) => {
   if (loading || !currentWeather || !forecast) {
     return <div className="widget">Loading...</div>;
   }
-
-  // Dynamic background based on weather condition (có thể điều chỉnh thêm hoặc bỏ nếu không cần)
   const weatherMain = currentWeather.weather[0].main.toLowerCase();
   let bgClass = '';
   if (weatherMain.includes('clear')) bgClass = 'clear';
@@ -103,10 +101,8 @@ const Widget: React.FC<WidgetProps> = ({ city, onRemove }) => {
     setForecastMode(prev => (prev === 'hourly' ? 'daily' : 'hourly'));
   };
 
-  // Bảng ánh xạ mô tả thời tiết: thay "mist" thành "Chi tiết thời tiết"
   const weatherDescriptionMap: Record<string, string> = {
     mist: 'Chi tiết thời tiết',
-    // Bạn có thể bổ sung thêm ánh xạ khác nếu cần
   };
 
   const originalDescription = currentWeather.weather[0].description.toLowerCase();

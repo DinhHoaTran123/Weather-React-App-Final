@@ -2,7 +2,7 @@
 import React from 'react';
 import Dashboard from './components/Dashboard';
 import './index.css';
-import { SettingsProvider } from './assets/SettingsContext';
+import { SettingsProvider } from './context/SettingsContext';
 
 const App: React.FC = () => {
   return (

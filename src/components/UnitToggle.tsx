@@ -1,6 +1,6 @@
 // src/components/UnitToggle.tsx
 import React, { useContext } from 'react';
-import { SettingsContext } from '../assets/SettingsContext';
+import { SettingsContext } from '../context/SettingsContext';
 
 const UnitToggle: React.FC = () => {
   const { unit, toggleUnit } = useContext(SettingsContext);

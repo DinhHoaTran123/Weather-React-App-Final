@@ -1,24 +1,18 @@
 React Weather App
 React Weather App là một ứng dụng thời tiết widget-based được xây dựng bằng React và Vite với TypeScript. Ứng dụng cho phép người dùng tìm kiếm địa điểm, hiển thị thông tin thời tiết hiện tại và dự báo, tự động cập nhật dữ liệu, kéo thả widget và nhiều tính năng nâng cao khác, nhằm tạo ra một trải nghiệm thời tiết trực quan và hiện đại.
 
-Table of Contents
-Tính Năng
 
-Demo
+## Table of Contents
 
-Cài Đặt
-
-Cấu Trúc Dự Án
-
-Biến Môi Trường
-
-Hướng Dẫn Sử Dụng
-
-Công Nghệ Sử Dụng
-
-Contributing
-
-License
+- [Tính Năng](#tính-năng)
+- [Demo](#demo)
+- [Cài Đặt](#cài-đặt)
+- [Cấu Trúc Dự Án](#cấu-trúc-dự-án)
+- [Biến Môi Trường](#biến-môi-trường)
+- [Hướng Dẫn Sử Dụng](#hướng-dẫn-sử-dụng)
+- [Công Nghệ Sử Dụng](#công-nghệ-sử-dụng)
+- [Contributing](#contributing)
+- [License](#license)
 
 Tính Năng
 Tìm kiếm thông minh:

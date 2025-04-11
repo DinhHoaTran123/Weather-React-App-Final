@@ -5,14 +5,10 @@
 ## Table of Contents
 
 - [Tính Năng](#tính-năng)
-- [Demo](#demo)
 - [Cài Đặt](#cài-đặt)
-- [Cấu Trúc Dự Án](#cấu-trúc-dự-án)
 - [Biến Môi Trường](#biến-môi-trường)
-- [Hướng Dẫn Sử Dụng](#hướng-dẫn-sử-dụng)
 - [Công Nghệ Sử Dụng](#công-nghệ-sử-dụng)
-- [Contributing](#contributing)
-- [License](#license)
+
 
 ## Tính Năng
 
@@ -28,12 +24,6 @@
   - **Resize Widget:** Cho phép kéo góc dưới widget để thay đổi kích thước.
   - **Chuyển đổi đơn vị nhiệt độ:** Hỗ trợ đổi giữa Celsius và Fahrenheit.
   - **Modal chi tiết:** Nhấn vào widget để xem thêm thông tin chi tiết về thời tiết.
-
-## Demo
-
-*(Nếu có, bạn có thể thêm link demo trực tuyến hoặc video demo ở đây)*
-
-## Cài Đặt
 
 ### Yêu Cầu
 
@@ -76,30 +66,7 @@ Copy
 yarn dev
 Mở trình duyệt tại URL được hiển thị (thường là http://localhost:3000).
 
-Cấu Trúc Dự Án
-css
-Copy
-react-weather-app/
-├── node_modules/                
-├── public/                      
-├── src/
-│   ├── api/
-│   │   └── weatherApi.ts        # Hàm gọi API (OpenWeatherMap)
-│   ├── assets/
-│   │   └── SettingsContext.tsx  # Context quản lý cài đặt (đơn vị nhiệt độ, …)
-│   ├── components/
-│   │   ├── Dashboard.tsx        # Dashboard chứa danh sách widget và SearchBar
-│   │   ├── SearchBar.tsx        # Component tìm kiếm và gợi ý thành phố
-│   │   ├── Widget.tsx           # Widget hiển thị thông tin thời tiết, dự báo, resize, drag
-│   │   ├── WeatherModal.tsx     # Modal hiển thị thông tin chi tiết thời tiết
-│   │   └── UnitToggle.tsx       # Chuyển đổi đơn vị nhiệt độ
-│   ├── App.tsx                  # Ứng dụng gốc
-│   ├── main.tsx                 # File entry point (React 18 createRoot)
-│   └── index.css                # Styles toàn cục
-├── .env                         # File biến môi trường (không commit lên Git)
-├── .gitignore                   # File ignore, đã ignore file .env
-├── package.json
-└── vite.config.ts
+
 Biến Môi Trường
 VITE_OPENWEATHER_API_KEY:
 API key của OpenWeatherMap được lưu trong file .env.
@@ -133,20 +100,3 @@ React-Draggable – Hỗ trợ kéo – thả cho các widget.
 
 CSS3 (Flexbox & Grid) – Xây dựng giao diện responsive.
 
-Contributing
-Nếu bạn muốn góp ý hay cải tiến dự án:
-
-Fork repository.
-
-Tạo branch mới cho các tính năng hoặc fix bug.
-
-Thực hiện commit và gửi Pull Request.
-
-Mọi ý kiến đóng góp sẽ được đánh giá và xem xét!
-
-License
-Phát hành theo MIT License.
-
-Nếu có thắc mắc hoặc cần hỗ trợ, bạn có thể mở issue trên GitHub repository.
-
-Chúc bạn thành công với React Weather App!

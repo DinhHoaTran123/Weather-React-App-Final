@@ -21,6 +21,8 @@ const Widget: React.FC<WidgetProps> = ({ city, onRemove }) => {
   const [forecast, setForecast] = useState<ForecastData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [forecastMode, setForecastMode] = useState<'hourly' | 'daily'>('hourly');
+  // state cho số ngày dự báo (1 đến 7)
+  const [forecastDays, setForecastDays] = useState<number>(5);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const nodeRef = useRef<HTMLDivElement>(null);
   const { unit } = useContext(SettingsContext);
@@ -89,6 +91,8 @@ const Widget: React.FC<WidgetProps> = ({ city, onRemove }) => {
   if (loading || !currentWeather || !forecast) {
     return <div className="widget">Loading...</div>;
   }
+
+  // Dynamic background based on weather condition (có thể sửa đổi theo nhu cầu)
   const weatherMain = currentWeather.weather[0].main.toLowerCase();
   let bgClass = '';
   if (weatherMain.includes('clear')) bgClass = 'clear';
@@ -101,15 +105,17 @@ const Widget: React.FC<WidgetProps> = ({ city, onRemove }) => {
     setForecastMode(prev => (prev === 'hourly' ? 'daily' : 'hourly'));
   };
 
+  // Bảng ánh xạ mô tả thời tiết, ví dụ thay "mist" thành "Chi tiết thời tiết"
   const weatherDescriptionMap: Record<string, string> = {
-    
+    mist: 'Chi tiết thời tiết',
+    // Bạn có thể bổ sung thêm ánh xạ cho các mô tả khác nếu cần
   };
 
   const originalDescription = currentWeather.weather[0].description.toLowerCase();
   const displayDescription =
     weatherDescriptionMap[originalDescription] || currentWeather.weather[0].description;
 
-  // Render forecast content dựa trên mode
+  // Render forecast content dựa trên chế độ chọn
   let forecastContent: JSX.Element;
   if (forecastMode === 'hourly') {
     const todayStr = new Date().toISOString().split('T')[0];
@@ -126,7 +132,7 @@ const Widget: React.FC<WidgetProps> = ({ city, onRemove }) => {
       <p>Không có dữ liệu dự báo theo giờ cho hôm nay.</p>
     );
   } else {
-    // Nhóm dự báo theo ngày và hiển thị min/max nhiệt độ
+    // Nhóm dữ liệu dự báo theo ngày
     const dailyData: { [key: string]: number[] } = {};
     forecast.list.forEach(item => {
       const day = item.dt_txt.split(' ')[0];
@@ -135,20 +141,34 @@ const Widget: React.FC<WidgetProps> = ({ city, onRemove }) => {
       }
       dailyData[day].push(item.main.temp);
     });
-    const days = Object.keys(dailyData).slice(0, 5); // 5 ngày dự báo
+    const availableDays = Object.keys(dailyData);
+    // Lấy số ngày theo số người dùng chọn, nhưng không vượt quá số ngày có sẵn
+    const days = availableDays.slice(0, forecastDays);
     forecastContent = days.length ? (
-      <ul>
-        {days.map(day => {
-          const temps = dailyData[day];
-          const min = Math.min(...temps);
-          const max = Math.max(...temps);
-          return (
-            <li key={day}>
-              {new Date(day).toLocaleDateString()} - {min}° / {max}°
-            </li>
-          );
-        })}
-      </ul>
+      <div>
+        <label htmlFor="forecastDays">Chọn số ngày dự báo: </label>
+        <select
+          id="forecastDays"
+          value={forecastDays}
+          onChange={(e) => setForecastDays(Number(e.target.value))}
+        >
+          {Array.from({ length: 6 }, (_, i) => i + 1).map(day => (
+            <option key={day} value={day}>{day} ngày</option>
+          ))}
+        </select>
+        <ul>
+          {days.map(day => {
+            const temps = dailyData[day];
+            const min = Math.min(...temps);
+            const max = Math.max(...temps);
+            return (
+              <li key={day}>
+                {new Date(day).toLocaleDateString()} - {min}° / {max}°
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     ) : (
       <p>Không có dữ liệu dự báo theo ngày.</p>
     );
@@ -170,9 +190,13 @@ const Widget: React.FC<WidgetProps> = ({ city, onRemove }) => {
           style={{ cursor: 'pointer' }}
         >
           <h3>{city.name}</h3>
-          <button className='displayDescription'>Thông tin chi tiết</button>
+          <button
+            className="displayDescription"
+            onClick={() => setIsModalOpen(true)}
+          >
+            Thông tin chi tiết
+          </button>
         </div>
-        {/* Chỉ hiển thị nội dung chi tiết nếu widget không đang ở trạng thái thu nhỏ */}
         <div className="widget-body">
           <div className="current-weather">
             <p>Nhiệt độ: {currentWeather.main.temp}°</p>
@@ -185,11 +209,10 @@ const Widget: React.FC<WidgetProps> = ({ city, onRemove }) => {
             <button onClick={fetchData}>Làm mới</button>
           </div>
           <div className="forecast">
-            <h4>{forecastMode === 'hourly' ? 'Dự báo theo giờ' : 'Dự báo 5 ngày'}</h4>
+            <h4>{forecastMode === 'hourly' ? 'Dự báo theo giờ' : `Dự báo ${forecastDays} ngày`}</h4>
             {forecastContent}
           </div>
         </div>
-        {/* Resize handle */}
         <div className="resize-handle" onMouseDown={handleMouseDown} />
         <WeatherModal
           isOpen={isModalOpen}

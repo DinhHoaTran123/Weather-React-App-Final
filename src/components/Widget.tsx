@@ -28,7 +28,7 @@ const Widget: React.FC<WidgetProps> = ({ city, onRemove }) => {
   const { unit } = useContext(SettingsContext);
 
   // State lưu lại kích thước widget (đơn vị: pixel)
-  const [dimensions, setDimensions] = useState<{ width: number }>({
+  const [dimensions, setDimensions] = useState<{ width: number}>({
     width: 350,
   });
 
@@ -55,16 +55,26 @@ const Widget: React.FC<WidgetProps> = ({ city, onRemove }) => {
 
   useEffect(() => {
     fetchData();
-    const interval = setInterval(fetchData, 10 * 60 * 1000);
+    const interval = setInterval(fetchData, 10 * 60 * 1000); 
     return () => clearInterval(interval);
   }, [city, unit]);
 
-  // Xử lý sự kiện resize
+  useEffect(() => {
+    const resetTimeout = setTimeout(() => {
+      setForecastMode('hourly');
+      setForecastDays(5);
+      fetchData();
+    }, 1 * 60 * 60 * 1000); 
+
+    return () => clearTimeout(resetTimeout);
+  }, []); 
+
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     e.preventDefault();
     resizingRef.current = true;
     initialMousePos.current = { x: e.clientX, y: e.clientY };
+    initialDimensions.current = { width: dimensions.width};
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);
   };
@@ -87,7 +97,7 @@ const Widget: React.FC<WidgetProps> = ({ city, onRemove }) => {
     return <div className="widget">Loading...</div>;
   }
 
-  // Dynamic background based on weather condition (có thể sửa đổi theo nhu cầu)
+  // Dynamic background based on weather condition (có thể điều chỉnh nếu cần)
   const weatherMain = currentWeather.weather[0].main.toLowerCase();
   let bgClass = '';
   if (weatherMain.includes('clear')) bgClass = 'clear';
@@ -100,10 +110,10 @@ const Widget: React.FC<WidgetProps> = ({ city, onRemove }) => {
     setForecastMode(prev => (prev === 'hourly' ? 'daily' : 'hourly'));
   };
 
-  // Bảng ánh xạ mô tả thời tiết, ví dụ thay "mist" thành "Chi tiết thời tiết"
+  // Bảng ánh xạ mô tả thời tiết: nếu cần thay "mist" thành "Chi tiết thời tiết"
   const weatherDescriptionMap: Record<string, string> = {
     mist: 'Chi tiết thời tiết',
-    // Bạn có thể bổ sung thêm ánh xạ cho các mô tả khác nếu cần
+    // Bạn có thể bổ sung thêm ánh xạ khác nếu cần
   };
 
   const originalDescription = currentWeather.weather[0].description.toLowerCase();
@@ -137,7 +147,7 @@ const Widget: React.FC<WidgetProps> = ({ city, onRemove }) => {
       dailyData[day].push(item.main.temp);
     });
     const availableDays = Object.keys(dailyData);
-    // Lấy số ngày theo số người dùng chọn, nhưng không vượt quá số ngày có sẵn
+    // Lấy số ngày theo giá trị forecastDays, không vượt quá số ngày có sẵn
     const days = availableDays.slice(0, forecastDays);
     forecastContent = days.length ? (
       <div>
@@ -147,7 +157,7 @@ const Widget: React.FC<WidgetProps> = ({ city, onRemove }) => {
           value={forecastDays}
           onChange={(e) => setForecastDays(Number(e.target.value))}
         >
-          {Array.from({ length: 6 }, (_, i) => i + 1).map(day => (
+          {Array.from({ length: 7 }, (_, i) => i + 1).map(day => (
             <option key={day} value={day}>{day} ngày</option>
           ))}
         </select>
@@ -174,7 +184,7 @@ const Widget: React.FC<WidgetProps> = ({ city, onRemove }) => {
       <div
         className={`widget ${bgClass}`}
         ref={nodeRef}
-        style={{ width: dimensions.width }}
+        style={{ width: dimensions.width}}
       >
         <button className="remove-btn" onClick={() => onRemove(city.name)}>
           Delete
@@ -199,7 +209,7 @@ const Widget: React.FC<WidgetProps> = ({ city, onRemove }) => {
           </div>
           <div className="widget-controls">
             <button onClick={toggleForecastMode}>
-              {forecastMode === 'hourly' ? 'Xem dự báo theo ngày' : 'Xem dự báo theo giờ'}
+              {forecastMode === 'hourly' ? 'Xem dự báo 5 ngày' : 'Xem dự báo theo giờ'}
             </button>
             <button onClick={fetchData}>Làm mới</button>
           </div>

@@ -204,7 +204,7 @@ const Widget: React.FC<WidgetProps> = ({ city, onRemove }) => {
           </div>
           <div className="widget-controls">
             <button onClick={toggleForecastMode}>
-              {forecastMode === 'hourly' ? 'Xem dự báo 5 ngày' : 'Xem dự báo theo giờ'}
+              {forecastMode === 'hourly' ? 'Xem dự báo theo ngày' : 'Xem dự báo theo giờ'}
             </button>
             <button onClick={fetchData}>Làm mới</button>
           </div>

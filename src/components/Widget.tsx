@@ -110,10 +110,8 @@ const Widget: React.FC<WidgetProps> = ({ city, onRemove }) => {
     setForecastMode(prev => (prev === 'hourly' ? 'daily' : 'hourly'));
   };
 
-  // Bảng ánh xạ mô tả thời tiết: nếu cần thay "mist" thành "Chi tiết thời tiết"
   const weatherDescriptionMap: Record<string, string> = {
     mist: 'Chi tiết thời tiết',
-    // Bạn có thể bổ sung thêm ánh xạ khác nếu cần
   };
 
   const originalDescription = currentWeather.weather[0].description.toLowerCase();

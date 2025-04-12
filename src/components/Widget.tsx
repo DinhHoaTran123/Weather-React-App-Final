@@ -28,17 +28,15 @@ const Widget: React.FC<WidgetProps> = ({ city, onRemove }) => {
   const { unit } = useContext(SettingsContext);
 
   // State lưu lại kích thước widget (đơn vị: pixel)
-  const [dimensions, setDimensions] = useState<{ width: number; height: number }>({
+  const [dimensions, setDimensions] = useState<{ width: number }>({
     width: 350,
-    height: 400,
   });
 
   // Các biến ref dùng để theo dõi thao tác resize
   const resizingRef = useRef<boolean>(false);
   const initialMousePos = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
-  const initialDimensions = useRef<{ width: number; height: number }>({
+  const initialDimensions = useRef<{ width: number }>({
     width: dimensions.width,
-    height: dimensions.height,
   });
 
   const fetchData = async () => {
@@ -67,7 +65,6 @@ const Widget: React.FC<WidgetProps> = ({ city, onRemove }) => {
     e.preventDefault();
     resizingRef.current = true;
     initialMousePos.current = { x: e.clientX, y: e.clientY };
-    initialDimensions.current = { width: dimensions.width, height: dimensions.height };
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);
   };
@@ -75,10 +72,8 @@ const Widget: React.FC<WidgetProps> = ({ city, onRemove }) => {
   const handleMouseMove = (e: MouseEvent) => {
     if (!resizingRef.current) return;
     const deltaX = e.clientX - initialMousePos.current.x;
-    const deltaY = e.clientY - initialMousePos.current.y;
     setDimensions({
       width: Math.max(200, initialDimensions.current.width + deltaX),
-      height: Math.max(150, initialDimensions.current.height + deltaY),
     });
   };
 
@@ -179,7 +174,7 @@ const Widget: React.FC<WidgetProps> = ({ city, onRemove }) => {
       <div
         className={`widget ${bgClass}`}
         ref={nodeRef}
-        style={{ width: dimensions.width, height: dimensions.height }}
+        style={{ width: dimensions.width }}
       >
         <button className="remove-btn" onClick={() => onRemove(city.name)}>
           Delete

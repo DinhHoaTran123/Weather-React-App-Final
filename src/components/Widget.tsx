@@ -102,7 +102,7 @@ const Widget: React.FC<WidgetProps> = ({ city, onRemove }) => {
   };
 
   const weatherDescriptionMap: Record<string, string> = {
-    mist: 'Chi tiết thời tiết',
+    
   };
 
   const originalDescription = currentWeather.weather[0].description.toLowerCase();
@@ -170,7 +170,7 @@ const Widget: React.FC<WidgetProps> = ({ city, onRemove }) => {
           style={{ cursor: 'pointer' }}
         >
           <h3>{city.name}</h3>
-          <p>{displayDescription}</p>
+          <button className='displayDescription'>Thông tin chi tiết</button>
         </div>
         {/* Chỉ hiển thị nội dung chi tiết nếu widget không đang ở trạng thái thu nhỏ */}
         <div className="widget-body">

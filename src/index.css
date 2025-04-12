@@ -142,7 +142,7 @@ h1, h2, h3, h4 {
   padding: 0 20px;
 }
 
-/* Widget Styling - Màu đồng nhất cho tất cả widget */
+/* Widget Styling */
 .widget {
   background: var(--card-bg);
   border-radius: 20px;
@@ -163,8 +163,6 @@ h1, h2, h3, h4 {
   font-weight: 700;
   margin-bottom: 10px;
 }
-
-/* Không sử dụng các lớp nền động nữa, tất cả widget dùng nền var(--card-bg) */
 
 /* Widget Controls */
 .widget-controls {
@@ -305,18 +303,7 @@ h1, h2, h3, h4 {
   background: #009f95;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .widgets-container {
-    grid-template-columns: 1fr;
-    padding: 0 10px;
-  }
-  
-  .search-bar-container {
-    max-width: 90%;
-  }
-}
-/* Phần bổ sung vào file index.css */
+/* Resize Handle */
 .resize-handle {
   position: absolute;
   width: 16px;
@@ -327,4 +314,54 @@ h1, h2, h3, h4 {
   background: rgba(0, 0, 0, 0.2);
   border-top-left-radius: 4px;
   z-index: 10;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .App {
+    padding: 10px;
+  }
+  
+  h1 {
+    font-size: 24px;
+  }
+  
+  .search-bar-container {
+    max-width: 90%;
+  }
+
+  .widgets-container {
+    grid-template-columns: 1fr;
+    grid-gap: 1rem;
+    padding: 0;
+  }
+  
+  .widget {
+    width: 100% !important;
+    height: auto !important;
+  }
+  
+  .widget h3 {
+    font-size: 22px;
+  }
+  
+  .current-weather p,
+  .forecast ul li {
+    font-size: 16px;
+  }
+}
+
+
+.displayDescription {
+  width: 150px;
+  height: 40px;
+  padding: 10px 16px;
+  margin: 0.5rem;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--accent-color);
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background var(--transition-speed);
 }
